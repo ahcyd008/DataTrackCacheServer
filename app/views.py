@@ -52,6 +52,7 @@ def download(request, tag):
 def upload(request, tag):
     if not tag:
         tag = "default"
+    tag = tag.replace("/", "-")
     tag = tag.strip()
     msg = ''
     if request.method == 'POST' and request.body:
@@ -62,6 +63,7 @@ def upload(request, tag):
         dir_name = base_dirname + "/" + tag
         print("tag:", tag, "file_name:", file_name)
         if file_name:
+            file_name = file_name.replace("..", "__")
             if not os.path.exists(os.path.dirname(os.path.join(dir_name, file_name))):
                 os.makedirs(os.path.dirname(os.path.join(dir_name, file_name)))
         else:

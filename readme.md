@@ -89,3 +89,7 @@ object UploadUtils {
     }
 }
 ```
+- 在postman测试如图
+![test1](./readme/test1.png)
+![test2](./readme/test2.png)
+![test3](./readme/test3.png)
