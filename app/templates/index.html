@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>FluencyDemo</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    </head>
+    <body style="text-align:center;">
+        <h2>数据上传服务</h2>
+        <h4><a href="{% static 'help.html' %}">使用说明</a></h4>
+        <table class="main-table">
+            <tr>
+                <th>Tags</th>
+                <th>操作</th>
+            </tr>
+            {% for tag in tags %}
+            <tr>
+                <td><a href="/static/{{ tag }}/">{{ tag }}</a></td>
+                <td>
+                    <a href="/zip/{{ tag }}">打包下载</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <script type="text/javascript" src="{% static 'js/index.js' %}" ></script>
+    </body>
+</html>

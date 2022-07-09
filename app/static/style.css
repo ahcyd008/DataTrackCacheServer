@@ -1,0 +1,22 @@
+body {
+}
+h2 {
+    text-align: center;
+}
+
+.main-table {
+    margin:0 auto;
+    border: 1px solid #444;
+}
+
+.main-table th{
+    min-width: 200px;
+    padding: 10px;
+    border: 1px solid #444;
+}
+
+.main-table td{
+    min-width: 200px;
+    padding: 10px;
+    border: 1px solid #444;
+}
