@@ -1,5 +1,9 @@
 # 数据上传缓存服务
 - 一个支持数据缓存到云服务的webserver
+- 支持按tag上传数据、在线浏览数据、按tag打包下载数据
+- 运行样例
+![Index](./readme/index.png) {width=30%}
+![Files](./readme/files.png) {width=30%}
 
 ### 背景
 
@@ -31,4 +35,4 @@ nohup python manage.py runserver 0.0.0.0:8000 &
 
 
 ### 如何接入服务
-- 安装
+- 
