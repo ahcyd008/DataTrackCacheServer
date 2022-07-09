@@ -2,8 +2,7 @@
 - 一个支持数据缓存到云服务的webserver
 - 支持按tag上传数据、在线浏览数据、按tag打包下载数据
 - 运行样例
-![Index](./readme/index.png) {width=30%}
-![Files](./readme/files.png) {width=30%}
+![preview](./readme/preview.png)
 
 ### 背景
 
@@ -35,4 +34,58 @@ nohup python manage.py runserver 0.0.0.0:8000 &
 
 
 ### 如何接入服务
-- 
+- 数据上传接口 **/upload/{tag}/{filename with extension}**
+- android接入样例
+> 样例为上传图片，其他格式同样支持
+```kotlin
+import android.util.Log
+import com.google.common.io.Files
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+import java.io.IOException
+
+object UploadUtils {
+    private const val TAG = "UploadUtils"
+    private const val UPLOAD_SERVER_PREFIX = "http://your_webserver_ip:8000"
+    private const val UPLOAD_TAG = "digital"
+    private var okHttpClient: OkHttpClient? = null
+    private fun getOkHttp(): OkHttpClient? {
+        if (okHttpClient == null) {
+            okHttpClient = OkHttpClient.Builder().build()
+        }
+        return okHttpClient
+    }
+
+    private fun readFile(file: File): ByteArray? {
+        try {
+            return Files.toByteArray(file)
+        } catch (e: IOException) {
+            Log.e(TAG, "readFile error", e)
+        }
+        return null
+    }
+
+    fun uploadFile(file: String, name: String) {
+        val url = "/upload/$UPLOAD_TAG?filename=$name"
+        val bodyBytes = readFile(File(file)) ?: return
+        val body = bodyBytes.toRequestBody("image/png".toMediaTypeOrNull())
+        val request: Request = Request.Builder()
+            .url(UPLOAD_SERVER_PREFIX + url)
+            .post(body)
+            .build()
+        getOkHttp()?.let {
+            it.newCall(request)
+                .enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        Log.w(TAG, "uploadFile error", e)
+                    }
+                    override fun onResponse(call: Call, response: Response) {
+                        Log.d(TAG, "uploadFile success response:${response.body}")
+                    }
+                })
+        }
+    }
+}
+```
