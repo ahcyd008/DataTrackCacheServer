@@ -35,6 +35,7 @@ nohup python manage.py runserver 0.0.0.0:8000 &
 
 ### 如何接入服务
 - 数据上传接口 **/upload/{tag}?filename={filename with extension}**
+    - {tag} 是自定义的数据类型，所上传的数据将被放在{tag}目录下面，以{filename}参数命名文件名
 - android接入样例
 > 样例为上传图片，其他格式同样支持
 ```kotlin
